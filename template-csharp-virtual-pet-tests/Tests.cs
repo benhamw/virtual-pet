@@ -5,7 +5,7 @@ namespace virtual_pet_tests
     [TestFixture]
     public class PetTests
     {
-        private Pet testPet;
+        public Pet testPet;
         [SetUp] public void SetUp() { 
             testPet = new Pet(); 
         }

@@ -6,14 +6,15 @@ using System.Threading.Tasks;
 
 namespace template_csharp_virtual_pet
 {
-    public class Pet
+    public class Pet  
     {
         // properties
         public string Name { get; set; }
         public string Species { get; set; }
         public int Hunger { get; set; }
         public int Boredom { get; set; }
-        public int Health { get; set; } 
+        public int Health { get; set; }
+        
 
         // Constructors
 
@@ -24,9 +25,21 @@ namespace template_csharp_virtual_pet
             Hunger = 60;
             Boredom = 60;
             Health = 60;
+            
         }
 
         // Methods
+        public Pet(string name, string species, int hunger, int boredom, int health)
+        {
+            Name=name;
+            Species=species;
+            Hunger=hunger;
+            Boredom=boredom;
+            Health=health;
+            
+        }
+
+        
 
         public void Feed()
         {
@@ -51,6 +64,7 @@ namespace template_csharp_virtual_pet
             Boredom += 5;
             Health -= 5;
         }
+
 
     }
 

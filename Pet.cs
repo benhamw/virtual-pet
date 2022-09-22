@@ -46,7 +46,7 @@ namespace template_csharp_virtual_pet
             Hunger -= 10;
         }
 
-        public void SeeDoctor()
+         public void SeeDoctor()
         {
             Health += 30;
         }

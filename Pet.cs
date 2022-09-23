@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace template_csharp_virtual_pet
 {
-    public class Pet  
+    internal abstract class Pet  
     {
         // properties
         public string Name { get; set; }
@@ -29,6 +29,8 @@ namespace template_csharp_virtual_pet
         }
 
         // Methods
+
+
         public Pet(string name, string species, int hunger, int boredom, int health)
         {
             Name=name;
@@ -39,33 +41,40 @@ namespace template_csharp_virtual_pet
             
         }
 
-        
+      
 
-        public void Feed()
+        public virtual void Feed()
         {
             Hunger -= 10;
         }
+        public void Feed(object activePet)
+        {
+            Hunger -= 10;
+            return;
+        }
 
-         public void SeeDoctor()
+        public virtual void SeeDoctor()
         {
             Health += 30;
         }
 
-        public void Play()
+        public virtual void Play()
         {
             Hunger += 10;
             Boredom -= 20;
             Health += 10;
         }
 
-        public void Tick()
+        public virtual void Tick()
         {
             Hunger += 5;
             Boredom += 5;
             Health -= 5;
         }
-
-
+        public virtual void DisplayPet()
+        {
+            Console.WriteLine($"{Name,8} the {Species,8} --  Health = {Health}, Hunger = {Hunger}, Boredom = {Boredom}");
+        }
     }
 
 }

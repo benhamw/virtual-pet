@@ -5,15 +5,17 @@ using template_csharp_virtual_pet;
 Console.BackgroundColor = ConsoleColor.Cyan;
 Console.ForegroundColor = ConsoleColor.Black;
 
-Pet activePet;
-Pet thisPet = new Pet();
-Pet pet1 = new Pet("Fido", "dog", 60, 60, 60);
-Pet pet2 = new Pet("Fluffy", "cat", 60, 60, 60);
-Pet pet3= new Pet("Lucky", "gold fish", 60, 60, 60);
-Pet pet4= new Pet("Polly", "parrot", 60, 60, 60);
-Pet pet5= new Pet("Ray", "Gecko", 60, 60, 60);
+Pet activePet; 
+OrganicPet pet1 = new OrganicPet("Fido", "dog", 60, 60, 60);
+OrganicPet pet2= new OrganicPet("Fluffy", "cat", 60, 60, 60);
+OrganicPet pet3= new OrganicPet("Lucky", "gold fish", 60, 60, 60);
+OrganicPet pet4 = new OrganicPet("Polly", "parrot", 60, 60, 60);
+OrganicPet pet5 = new OrganicPet("Ray", "Gecko", 60, 60, 60);
 
-List<Pet> petShelter = new List<Pet>() { pet1, pet2, pet3, pet4, pet5};
+RoboticPet pet6 = new RoboticPet("Rex", "dog", 60, 60);
+RoboticPet pet7 = new RoboticPet("Lola", "cat", 60, 60);
+
+List<Pet> petShelter = new List<Pet>() { pet1, pet2, pet3, pet4, pet5, pet6, pet7};
 
 bool continueRunning = true;
 while (continueRunning)
@@ -26,119 +28,160 @@ while (continueRunning)
     Console.WriteLine("3. Feed your pet.");
     Console.WriteLine("4. Play with your pet.");
     Console.WriteLine("5. Take your pet to the doctor.");
-    Console.WriteLine("6. Admit a pet to the shelter or adopt a pet out.");
-    Console.WriteLine("7. List pets in the shelter.");
-    Console.WriteLine("8. Interact with all pets in the shelter.");
-    Console.WriteLine("9. Interact with a particular shelter pet.");
+    Console.WriteLine("6. Admit an organic pet to the shelter or adopt an organic pet out.");
+    Console.WriteLine("7. Admit a robotic pet to the shelter or adopt a robotic pet out.");
+    Console.WriteLine("8. List pets in the shelter.");
+    Console.WriteLine("9. Interact with all pets in the shelter.");
+    Console.WriteLine("10. Interact with a particular shelter pet.");
 
     Console.WriteLine("Press Q to quit");
 
     var playerChoice = Console.ReadLine().ToLower();
-
     switch (playerChoice)
     {
         case "1":
             // Create a pet
+            activePet = new OrganicPet();
             Console.WriteLine("What's the name of your pet?");
             var petName = Console.ReadLine();
             Console.WriteLine("What species is your pet?");
-            var petSpecies = Console.ReadLine();
-            thisPet.Name = petName;
-            thisPet.Species = petSpecies;
+            var petSpecies = Console.ReadLine();       
+            activePet.Name = petName;
+            activePet.Species = petSpecies;
             break;
         case "2":
             // Display pet info
-            Console.WriteLine($"\n Name {thisPet.Name} Species {thisPet.Species} Health {thisPet.Health} Hunger {thisPet.Hunger} Boredom {thisPet.Boredom}");
+            displayPet Pet = activePet();
+            activePet.DisplayPet();
+            Console.WriteLine($"\n Name {activePet.Name} Species {activePet.Species} Health {activePet.Health} Hunger {activePet.Hunger} Boredom {activePet.Boredom}");
             Console.Write("\nPress enter to return to the Main Menu");
             Console.ReadLine();
             break;
         case "3":
             //Feed your pet
-            thisPet.Feed();
-            Console.WriteLine($"\n Feeding your pet has changed it's status: Health {thisPet.Health} Hunger {thisPet.Hunger} Boredom {thisPet.Boredom}");
+            activePet.Feed();
+            Console.WriteLine($"\n Feeding your pet has changed it's status: Health {activePet.Health} Hunger {activePet.Hunger} Boredom {activePet.Boredom}");
             Console.ReadLine();
             break;
         case "4":
             // Play with your pet
-            thisPet.Play();
-            Console.WriteLine($"\n Playing with your pet has changed it's status: Health {thisPet.Health} Hunger {thisPet.Hunger} Boredom {thisPet.Boredom}");
+            activePet.Play();
+            Console.WriteLine($"\n Playing with your pet has changed it's status: Health {activePet.Health} Hunger {activePet.Hunger} Boredom {activePet.Boredom}");
             Console.ReadLine();
             break;
         case "5":
             // Take pet to the doctor
-            thisPet.SeeDoctor();
-            Console.WriteLine($"\n Taking your pet to the doctor has changed it's status: Health {thisPet.Health} Hunger {thisPet.Hunger} Boredom {thisPet.Boredom}");
+            activePet.SeeDoctor();
+            Console.WriteLine($"\n Taking your pet to the doctor has changed it's status: Health {activePet.Health} Hunger {activePet.Hunger} Boredom {activePet.Boredom}");
             Console.ReadLine();
             break;
         case "6":
             // Add a pet to the shelter or adopt a pet out
-            Console.WriteLine("What do you want to do? \n A. Admit another pet to the shelter. \n B. Adopt a pet out of the shelter. \n");
+            Console.WriteLine("What do you want to do? \n A. Admit another organic pet to the shelter. \n B. Adopt an organic pet out of the shelter. \n");
             var response = Console.ReadLine().ToLower();
             if (response == "a")
             {
-                var newShelterPet = new Pet();
-                Console.WriteLine("What is the pet's name?");
+                var newShelterPet = new OrganicPet();
+                Console.WriteLine("What is the organic pet's name?");
                 var name = Console.ReadLine();
-                Console.WriteLine("What is the pet's species?");
+                Console.WriteLine("What is the organic pet's species?");
                 var species = Console.ReadLine();
                 var hunger = 60;
                 var health = 60;
                 var boredom = 60;
-                newShelterPet = new Pet(name, species, hunger, boredom, health);
+                newShelterPet = new OrganicPet(name, species, hunger, boredom, health);
                 
                 petShelter.Add(newShelterPet);
                 Console.WriteLine($"\n{name} the {species} has been added");
             }
             else if (response == "b")
             {
-                Console.WriteLine("Name of the pet you want to adopt out?");
+                Console.WriteLine("Name of the organic pet you want to adopt out?");
                 var adoptName = Console.ReadLine();
                 for (int j = 0; j < petShelter.Count; j++)
                 {
                     if(petShelter[j].Name == adoptName)
                     {
                         petShelter.RemoveAt(j);
-                        Console.WriteLine("That pet has been adopted out!");
+                        Console.WriteLine("That organic pet has been adopted out!");
+                    }
+                }
+            }
+            break;
+        case "7":
+            // Add a pet to the shelter or adopt a pet out
+            Console.WriteLine("What do you want to do? \n A. Admit another robotic pet to the shelter. \n B. Adopt a robotic pet out of the shelter. \n");
+            var response1 = Console.ReadLine().ToLower();
+            if (response1 == "a")
+            {
+                var newShelterPet = new RoboticPet();
+                Console.WriteLine("What is the robotic pet's name?");
+                var name = Console.ReadLine();
+                Console.WriteLine("What is the robotic pet's species?");
+                var type = Console.ReadLine();
+                var charge = 60;
+                var maintenance = 60;
+                newShelterPet = new RoboticPet(name, type, charge, maintenance);
+
+                petShelter.Add(newShelterPet);
+                Console.WriteLine($"\n{name} the {type} has been added");
+            }
+            else if (response1 == "b")
+            {
+                Console.WriteLine("Name of the robotic pet you want to adopt out?");
+                var adoptName = Console.ReadLine();
+                for (int k = 0; k < petShelter.Count; k++)
+                {
+                    if (petShelter[k].Name == adoptName)
+                    {
+                        petShelter.RemoveAt(k);
+                        Console.WriteLine("That robotic pet has been adopted out!");
                     }
                 }
             }
 
-            Console.Write("\nPress enter to return to the Main Menu");
-            Console.ReadLine();
-            break;
-        case "7":
-            // List pets in the shelter
-            Console.WriteLine("\nHere's a list of the pets in the shelter:\n");
-            for (int i = 0; i < petShelter.Count; i++)
-            {
-                 Console.WriteLine($"{petShelter[i].Name,8} the {petShelter[i].Species,8} --  Health = {petShelter[i].Health}, Hunger = {petShelter[i].Hunger}, Boredom = {petShelter[i].Boredom}");
-            }
+
+
 
             Console.Write("\nPress enter to return to the Main Menu");
             Console.ReadLine();
             break;
         case "8":
+            // List pets in the shelter
+            Console.WriteLine("\nHere's a list of the pets in the shelter:\n");
+            for (int i = 0; i < petShelter.Count; i++)
+            {
+               // activePet = new OrganicPet(petShelter[i].Name, petShelter[i].Species, petShelter[i].Hunger, petShelter[i].Boredom, petShelter[i].Health);
+               activePet = petShelter[i];
+                activePet.DisplayPet();
+            }  
+
+            Console.Write("\nPress enter to return to the Main Menu");
+            Console.ReadLine();
+            break;
+        case "9":
             // Interact with all pets
             Console.WriteLine("How would you like to interact with all pet in the shelter?\nF. Feed\nP. Play\nD. See Doctor");
             var interactOptionAll = Console.ReadLine().ToLower();
             for (int l = 0; l < petShelter.Count; l++)
             {
+                activePet = petShelter[l];
                 if (interactOptionAll == "f")
                 {
-                    petShelter[l].Hunger = FeedPet(petShelter[l].Hunger);
-                 }
+                    activePet.Feed();
+                    petShelter[l] = activePet;
+                }
                 else if (interactOptionAll == "p")
                 {
-                    var playResult = PlayWithPet(petShelter[l].Hunger, petShelter[l].Boredom, petShelter[l].Health);
-                    petShelter[l].Hunger = playResult.Item1;
-                    petShelter[l].Boredom = playResult.Item2;
-                    petShelter[l].Health = playResult.Item3;
-                  }
+                    activePet.Play();
+                    petShelter[l] = activePet;
+                }
                 else if (interactOptionAll == "d")
                 {
-                    petShelter[l].Health = PetToDoctor(petShelter[l].Health);
+                    activePet.SeeDoctor();
+                    petShelter[l] = activePet;
                 }
-                Console.WriteLine($"{petShelter[l].Name,8} the {petShelter[l].Species,8} --  Health = {petShelter[l].Health}, Hunger = {petShelter[l].Hunger}, Boredom = {petShelter[l].Boredom}");
+                activePet.DisplayPet();
             }
             var action = "";
             if(interactOptionAll == "f")
@@ -159,7 +202,7 @@ while (continueRunning)
             Console.Write("\nPress enter to return to the Main Menu");
             Console.ReadLine();
             break;
-        case "9":
+        case "10":
             // Interact with a particular pet
             Console.WriteLine("Name of the pet you want to interact with?");
             var interactName = Console.ReadLine();
@@ -167,25 +210,26 @@ while (continueRunning)
             {
                 if (petShelter[k].Name == interactName)
                 {
-                    Console.WriteLine($"{petShelter[k].Name} is in the Shelter.\n");
+                    activePet = petShelter[k];
+                    Console.WriteLine($"{activePet.Name} is in the Shelter.\n");
                     Console.WriteLine("How would you like to interact with this pet?\nF. Feed\nP. Play\nD. See Doctor");
                     var interactOption = Console.ReadLine().ToLower();
                     if (interactOption == "f")
                     {
-                        petShelter[k].Hunger = FeedPet(petShelter[k].Hunger);
+                        activePet.Feed();
+                        petShelter[k] = activePet;
                         Console.WriteLine($"You fed {petShelter[k].Name}. Well done!");
                     }
                     else if (interactOption == "p") 
                     {
-                        var playResult = PlayWithPet(petShelter[k].Hunger, petShelter[k].Boredom, petShelter[k].Health);
-                        petShelter[k].Hunger = playResult.Item1;
-                        petShelter[k].Boredom = playResult.Item2;   
-                        petShelter[k].Health = playResult.Item3;
+                        activePet.Play();
+                        petShelter[k] = activePet;
                         Console.WriteLine($"You played with {petShelter[k].Name}.");
                     }
                     else if (interactOption == "d")
                     {
-                        petShelter[k].Health = PetToDoctor(petShelter[k].Health);
+                        activePet.SeeDoctor();
+                        petShelter[k] = activePet;
                         Console.WriteLine($"{petShelter[k].Name} is extra healthy after seeing the doctor!");
                     }
                 }
@@ -205,27 +249,6 @@ while (continueRunning)
 
     }
 
-    thisPet.Tick();
-
-    int FeedPet(int hunger)
-    {
-        hunger -= 10;
-        return hunger;
-    }
-
-    static (int, int, int) PlayWithPet(int hunger, int boredom, int health)
-    {
-        hunger += 10;
-        boredom -= 20;
-        health += 10;
-        return (hunger, boredom, health);
-    }
-
-    int PetToDoctor(int health)
-    {
-        health += 30;
-        return health;
-    }
-
+    activePet.Tick();
 
 }

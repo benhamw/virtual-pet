@@ -2,6 +2,9 @@
 using System.Runtime.InteropServices;
 using template_csharp_virtual_pet;
 
+Console.BackgroundColor = ConsoleColor.Cyan;
+Console.ForegroundColor = ConsoleColor.Black;
+
 Pet activePet;
 Pet thisPet = new Pet();
 Pet pet1 = new Pet("Fido", "dog", 60, 60, 60);

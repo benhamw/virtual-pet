@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace template_csharp_virtual_pet
 {
-    internal abstract class Pet  
+    public class Pet  
     {
         // properties
         public string Name { get; set; }
@@ -14,8 +15,7 @@ namespace template_csharp_virtual_pet
         public int Hunger { get; set; }
         public int Boredom { get; set; }
         public int Health { get; set; }
-        
-
+     
         // Constructors
 
         public Pet()
@@ -29,8 +29,6 @@ namespace template_csharp_virtual_pet
         }
 
         // Methods
-
-
         public Pet(string name, string species, int hunger, int boredom, int health)
         {
             Name=name;
@@ -40,17 +38,15 @@ namespace template_csharp_virtual_pet
             Health=health;
             
         }
+        public virtual void DisplayPet()
+        {
+            Console.WriteLine($"{Name,8} the {Species,8} --  Hunger = {Hunger}, Boredom = {Boredom}, Health = {Health}");
+        }
 
-      
 
         public virtual void Feed()
         {
-            Hunger -= 10;
-        }
-        public void Feed(object activePet)
-        {
-            Hunger -= 10;
-            return;
+            Hunger -= 20;
         }
 
         public virtual void SeeDoctor()
@@ -71,10 +67,8 @@ namespace template_csharp_virtual_pet
             Boredom += 5;
             Health -= 5;
         }
-        public virtual void DisplayPet()
-        {
-            Console.WriteLine($"{Name,8} the {Species,8} --  Health = {Health}, Hunger = {Hunger}, Boredom = {Boredom}");
-        }
+
+
     }
 
 }
